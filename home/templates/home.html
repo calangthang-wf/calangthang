@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+
+<div class="home-container">
+    
+    <div class="latest-content">
+        <div class="latest-content-title">
+            <p class="latest-content-title-text">LATEST POSTS</p>
+        </div>
+        <div class="latest-content-container">
+            <div class="latest-content-items-container">
+                {% for latest_blog_list in all_blog_list %}
+                <div class="latest-content-items">
+                    <div>
+                        {% if latest_blog_list.images %}
+                        <img class="latest-content-images" src="{{latest_blog_list.images.url}}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="latest-content-text-base">
+                        <div class="latest-content-items-title">{{latest_blog_list.title}}</div>
+                        <div class="latest-content-subtitle-container">
+                            <i id="calendar-alt" class="far fa-calendar-alt"></i>
+                            <div class="latest-content-items-time">{{latest_blog_list.publish}}</div>
+                            <i id="latest-author" class="fas fa-user-edit"></i>
+                            <div class="latest-content-author">{{latest_blog_list.author}}</div>
+                        </div>                                  
+                        <div class="latest-content-items-subcontent">{{latest_blog_list.content}}</div>                         
+                        <div class="view-comment-container">
+                            <i id="fa-eye" class="fas fa-eye"></i>
+                            <p class="view-count">123</p>
+                            <i id="fa-comment" class="fas fa-comment"></i>
+                            <p class="comment-count">12</p>
+                        </div> 
+                    </div>              
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="popular-posts">
+        <div class="popular-posts-title">
+            <p class="popular-posts-title-text">POPULAR POSTS</p>
+        </div>
+        <div class="popular-posts-container">
+            <div class="popular-posts-items-container">
+                {% for p_posts in all_popular_posts_list %}                
+                <div class="popular-posts-items-row">
+                    <div>
+                        {% if p_posts.images %}
+                        <img src="{{p_posts.images.url}}" alt="" class="popular-posts-image"> 
+                        {% endif %}
+                    </div>
+                    <div class="popular-posts-text-base">
+                        <div class="popular-posts-items-title">{{p_posts.title}}</div>
+                        <div class="popular-posts-subtitle-container">                           
+                            <div class="popular-posts-time"><i id="calendar-popular" class="far fa-calendar-alt"></i>{{p_posts.publish}}</div>                           
+                            <div class="popular-posts-author"><i id="popular-author" class="fas fa-user-edit"></i>{{p_posts.author}}</div>
+                        </div> 
+                        <div class="popular-posts-subcontent">{{p_posts.content}}</div>
+                        <div class="view-comment-container">
+                            
+                            <p class="view-count"><i id="fa-eye" class="fas fa-eye"></i>123</p>
+                            <i id="fa-comment" class="fas fa-comment"></i>
+                            <p class="comment-count">12</p>
+                        </div>                        
+                    </div>                    
+                </div>
+                {% endfor %}                                                              
+            </div>
+        </div>
+    </div>
+
+    <div class="popular-community">
+        <div class="popular-community-title">
+            <p class="popular-community-title-text">POPULAR COMMUNNITY</p>
+        </div>
+        <div class="popular-community-container">
+            <div class="popular-community-items-container">
+                {% for pcomumity in all_comunity_list %}
+                <div class="popular-community-items-col ">
+                    <div>
+                        {% if pcomumity.avatar %}
+                        <img src="{{pcomumity.avatar.url}}" alt="{{pcomumity.title}}" class="popular-community-avt">
+                        {% endif %}
+                    </div>
+                    <div class="popular-community-text-container">
+                        <div class="popular-community-items-title">
+                            <p class="popular-community-items-title-text">
+                                {{pcomumity.title}}
+                            </p>
+                            <i id="popular-community-title-icon" class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="popular-community-subtext">
+                            <div class="popular-comunity-bio">{{pcomumity.introduce}}</div>
+                                                                                                              
+                            <div class="popular-community-member-count"><i id="community-user-ico" class="fas fa-user-circle"></i>3k</div>
+                            
+                            <div class="popular-community-posts-count"><i id="community-posts-ico" class="far fa-newspaper"></i>10k+</div>
+                        </div>
+                    </div>
+                </div> 
+                {% endfor %}               
+            </div>
+        </div>
+    </div>
+
+    <div class="popular-service">
+        <div class="popular-service-title">
+            <p class="popular-service-title-text">POPULAR SERVICE</p>
+        </div>
+        <div class="popular-service-container">
+            <div class="popular-service-items-container">
+                {% for pservice in popular_service_lists %}
+                <div class="popular-service-items-col">
+                    <div>
+                        {% if pservice.images %}
+                        <img src="{{pservice.images.url}}" alt="" class="popular-service-images">
+                        {% endif %}
+                    </div>
+                    <div class="popular-service-text-base">
+                        <div class="popular-service-items-title">{{pservice.title}}</div>
+                        <div class="popular-service-subtitle-container">                           
+                            <div class="popular-service-tag">
+                                <p class="popular-service-tag-text">{{pservice.topic}}</p>
+                            </div>
+                        </div>                        
+                        <div class="popular-service-items-info">{{pservice.introduce}}</div>
+                        <div class="view-comment-container">
+                            <i id="rating-icon" class="fas fa-star"></i>
+                            <p class="view-count">123</p>
+                            <i id="fa-comment" class="fas fa-comment"></i>
+                            <p class="comment-count">12</p>
+                        </div>  
+                    </div>                    
+                </div>
+                {% endfor %}                
+            </div>
+        </div>
+    </div>    
+
+</div>
+
+{% endblock %}

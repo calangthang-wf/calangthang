@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/blog/upload_blog.css' %}">
+<div class="new-post-container">
+    <form class="post-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="post-form-backdrop closed"></div>
+        <div class="post-section editor-title">
+            <h3 class="page-title">Create New Article</h3>
+        </div>
+        
+        <div class="post-section">
+            <div class="post-title">
+                <h5 class="content-title">Title</h5>
+                {{ form.title }}
+            </div>
+            <hr>
+
+            <div class="button-container">
+                <button type="button" id="boldButton">B</button>
+                <button type="button" id="italicButton">I</button>
+                <button type="button" id="underlineButton">U</button>
+                <button type="button" id="insertLinkButton">Chèn URL</button>                
+                <input class='insertUrl' id="urlInput" type="text" placeholder="URL">
+                <button type="button" id="insertImageButton">Chèn ảnh</button>
+                <input class='imageUrlInp' id="imageInput" type="text" placeholder="URL ảnh">
+            </div>
+            
+            <hr>
+
+            <h5 class="content-title">Content</h5>
+            <div contenteditable="true" style="border: 1px solid #ccc; padding: 10px;" id="editable-content" name="content">
+                {{form.content}}
+            </div>
+            <h5 class="title-pre">Preview</h5>
+            <div class="text-preview">                
+                <div id="preview"></div>
+            </div>
+
+            <div class="post-section post-media">
+                <h5 class="">Thumbnail</h5>
+                <div class="post-media-inner">
+                  <div class="add-thumbnail-button">
+                    <i class="fas fa-plus"></i>
+                    <input class="thumbnail-button" type="button" value="" id="upload-button">
+                  </div>                  
+                  <span id="file-name"></span>
+                  <div class="image-pre">
+                    <div class="del-thb">
+                      <i class="fas fa-times"></i>
+                      <button class="del-thumnail-btn" type="button" id="delete-image-button"></button>
+                    </div>  
+                    <img class="image-preview" id="image-preview" src="" alt="Preview">                  
+                  </div>                  
+                  {{form.thumbnail}}
+                </div>
+            </div>
+
+            <div class="post-section post-buttons">
+                <div class="dropdown-tag-menu">
+                    <button type="button" class="btn btn-success" id="dropdown-menu-button">Add Tag</button>
+                    <div class="dropdown-content">
+                        <a href="#">Add Tag</a>
+                        <a href="#">Add Bot</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary">Save Draft</button>
+                <button  type="submit" class="btn btn-success">Publish</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+  const editor = document.getElementById('editor');
+  const boldButton = document.getElementById('boldButton');
+  const italicButton = document.getElementById('italicButton');
+  const underlineButton = document.getElementById('underlineButton');
+  const insertLinkButton = document.getElementById('insertLinkButton');
+  const insertImageButton = document.getElementById('insertImageButton');
+  const urlInput = document.getElementById('urlInput');
+  const imageInput = document.getElementById('imageInput');
+  const preview = document.getElementById('preview');
+  const imagePre = document.querySelector('.image-pre');
+
+  insertImageButton.addEventListener('click', insertImage);
+
+  boldButton.addEventListener('click', () => {
+    wrapText('[bold]', '[/bold]');
+  });
+
+  italicButton.addEventListener('click', () => {
+    wrapText('[italic]', '[/italic]');
+  });
+
+  underlineButton.addEventListener('click', () => {
+    wrapText('[underline]', '[/underline]');
+  });
+
+  insertLinkButton.addEventListener('click', () => {
+    insertLink();
+  });
+
+  insertImageButton.addEventListener('click', () => {
+    insertImage();
+  });
+
+  editor.addEventListener('input', updatePreview);
+
+  function wrapText(openTag, closeTag) {
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    const selectedText = editor.value.substring(start, end);
+    const replacement = `${openTag}${selectedText}${closeTag}`;
+    editor.setRangeText(replacement, start, end, 'end');
+    updatePreview();
+  }
+
+  function insertLink() {
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    const selectedText = editor.value.substring(start, end);
+    const url = urlInput.value;
+
+    if (url && selectedText) {
+      const link = `<a href="${url}" class="link">${selectedText}</a>`;
+      const replacement = editor.value.substring(0, start) + link + editor.value.substring(end);
+      editor.value = replacement;
+    }
+    updatePreview();
+  }
+
+  function insertImage() {
+    const imageUrl = imageInput.value;
+
+    if (imageUrl) {
+        const imageTag = `<br><img src="${imageUrl}" alt="Image" class="centered-image"'><br>`;
+        editor.value += imageTag;
+    }
+    updatePreview();
+  }
+
+  function updatePreview() {
+    const editorValue = editor.value;
+    const previewValue = parseFormatting(editorValue);
+
+    preview.innerHTML = `${previewValue}`;
+  }
+
+  function parseFormatting(text) {
+    text = text.replace(/\[bold\](.*?)\[\/bold\]/g, '<strong>$1</strong>');
+    text = text.replace(/\[italic\](.*?)\[\/italic\]/g, '<em>$1</em>');
+    text = text.replace(/\[underline\](.*?)\[\/underline\]/g, '<u>$1</u>');
+    text = text.replace(/\n/g, '<br>');
+    
+    return text;
+  }
+
+  document.getElementById("upload-button").addEventListener("click", function() {
+    document.getElementById("thumbnail-input").click();
+  });
+
+  document.getElementById("thumbnail-input").addEventListener("change", function() {
+    var fileInput = document.getElementById("thumbnail-input");
+    var files = fileInput.files;
+    var fileNameSpan = document.getElementById("file-name");
+    var imagePreview = document.getElementById("image-preview");
+        
+        if (files.length > 0) {
+            var file = files[0];
+            
+            if (file.type.startsWith("image/")) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = "block";
+                    imagePre.style.display = "block";
+                };
+                
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = "";
+                imagePreview.style.display = "none";
+                imagePre.style.display = "none";
+            }
+        } else {
+            fileNameSpan.textContent = "";
+            imagePreview.src = "";
+            imagePreview.style.display = "none";
+            imagePre.style.display = "none";
+        }
+    });
+
+  document.getElementById("delete-image-button").addEventListener("click", function() {
+    // Đặt trường thumbnail trống
+    document.getElementById("thumbnail-input").value = "";
+
+    // Xóa ảnh xem trước
+    var imagePreview = document.getElementById("image-preview");
+    imagePreview.src = "";
+    imagePreview.style.display = "none";
+    imagePre.style.display = "none";
+
+    // Xóa tên tệp hiển thị
+    document.getElementById("file-name").textContent = ""; 
+
+    // Cập nhật xem trước
+    updatePreview();
+  });
+</script>
+
+<script src="{% static 'js/blog/upload_post.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+{% endblock %}

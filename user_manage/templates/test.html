@@ -1,0 +1,12 @@
+
+	<h2>Hi! Welcome to Ca Lang Thang</h2>
+		<div class="container" id="container">
+			<div class="form-container sign-up-container">
+				<form action="#" method="POST">
+					{% csrf_token %}
+					{{ register_form.as_p }}
+                    <button type="submit">Sign Up</button>
+				</form>
+            </div>
+        </div>
+    </h2>

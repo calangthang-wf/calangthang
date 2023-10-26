@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/blog/blog.css' %}">
+
+<div class="blog-home">
+    
+        <div class="create-posts">
+            <div class="create-posts-items-container">
+                <div class="create-posts-form">
+                    {% if user.is_authenticated %}
+                        <a href="/blog/articleupload" class="create-posts-button-form">
+                            <i class="fas fa-plus"></i>
+                            Create New Article
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="create-posts-button-form">
+                            <i class="fas fa-plus"></i>
+                            Create New Article
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    
+    
+    <div class="category">
+        <div class="category-container">
+            <a href="#" class="title-container">
+                <p class="title-text">category</p>
+            </a>
+            <hr id="category-line">
+            <div class="category-items-container">                
+                <a href="#" class="top-category-items">                    
+                    <div class="category-items-name">
+                        <i id="category-items-icon" class="fas fa-laptop-code"></i>
+                        <p class="category-items-text">Programming</p>
+                    </div>
+                </a>
+                <a href="#" class="top-category-items">
+                    <div class="category-items-name">
+                        <i id="category-items-icon" class="fas fa-laptop"></i></i>
+                        <p class="category-items-text">Technology</p>
+                    </div>
+                </a>
+                <a href="#" class="top-category-items">
+                    <div class="category-items-name">
+                        <i id="category-items-icon" class="fas fa-plane"></i>
+                        <p class="category-items-text">Traveling</p> 
+                    </div>
+                </a>
+                <a href="#" class="top-category-items">
+                    <div class="category-items-name">
+                        <i id="category-items-icon" class="fab fa-pagelines"></i>
+                        <p class="category-items-text">Life</p> 
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-post">
+        <div class="top-post-container">
+            <div class="top-post-items-container">
+                <div class="top-post-items-container">
+                    <img src="{% static "images/vch.jpg" %}" alt="Hi em" class="top-post-image">
+                    <div class="top-post-text-container">                    
+                        <a href="#" class="top-post-title">A Discount Toner Cartridge Is Better Than Ever.</a>
+                        <div class="top-post-content">
+                            <p class="top-post-content-text">
+                                YouTube has become the go-to source for videos on the internet.
+                            </p>
+                        </div>
+                        <div class="top-post-subtitle">
+                            <a href="#" class="top-post-author"><i id="author-top-post-ico" class="fas fa-user-circle"></i>Calangthang</a>
+                            <div class="top-post-date"><i id="top-post-publish-ico" class="fas fa-clock"></i>14/02/2023 - 23:03pm</div>
+                            <i id="hot-badge" alt="Hot article!" class="fab fa-hotjar"></i>
+                        </div>
+                        <div class="top-post-topic">
+                            <a href="" class="top-post-topic-items">Technology</a>
+                        </div>
+                        <div class="top-post-view-comment">
+                            <div class="top-post-view"><i id="top-post-view-icon" class="fas fa-eye"></i>13</div>
+                            <div class="top-post-comment"><i id="top-post-comment-icon" class="fas fa-comment"></i>423</div>
+                        </div>
+                        <div class="top-post-redmore">
+                            <a href="#">READ MORE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="your-article">
+        <div class="your-article-container">
+            <div href="#" class="your-article-title-container">
+                <p class="your-article-title-text">your Article</p>
+            </div>
+            {% for post in post %}
+                <div class="your-article-items-container">
+                    <div class="your-article-items">
+                        <div class="your-article-images">                                   
+                            <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" class="article-images">
+                        </div>                    
+                        <div class="your-article-content-container">
+                            <a href="{% url 'detail' post.slug %}" class="your-article-content-text">{{ post.title }}</a>
+                            <div class="top-post-content">
+                                <p id="formatted-content" class="top-post-content-text">
+                                    Click to read more!
+                                </p>
+                            </div>
+                            <div class="your-article-subtext">
+                                <div class="decription-article">
+                                    <a href="#" class="your-article-author">
+                                        <i id="author-your-post-ico" class="fas fa-user-circle"></i> {{ post.author }}
+                                    </a>
+                                    <div class="your-article-publish">
+                                        <i id="your-post-publish-ico" class="fas fa-clock"></i>{{ post.published_date | date:"M-d-Y | H:i:s" }}
+                                    </div>
+                                </div>                            
+                            </div>
+                            <div class="top-post-topic">
+                                <a href="" class="top-post-topic-items">{{ post.topic }}</a>
+                            </div>
+                            <div class="top-post-view-comment">
+                                <div class="top-post-view"><i id="top-post-view-icon" class="fas fa-eye"></i>13</div>
+                                <div class="top-post-comment"><i id="top-post-comment-icon" class="fas fa-comment"></i>423</div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            {% endfor %} 
+        </div>
+    </div>
+    
+
+    <div class="latest-article">
+        <div class="latest-article-container">
+            <div href="#" class="latest-article-title-container">
+                <p class="latest-article-title-text">Latest Article</p>
+            </div>
+            <div class="latest-article-items-container">
+                <div class="latest-article-items">
+                    <div class="latest-article-images">
+                        <img src="{% static 'images/avt2.jpg' %}" alt="" class="article-images">
+                    </div>
+                    <div class="latest-article-content-container">
+                        <a href="#" class="latest-article-content-text">Learning Together: Sharing Knowledge</a>
+                        <div class="latest-article-subtext">
+                            <a href="#" class="latest-article-author">
+                                <i id="author-top-post-ico" class="fas fa-user-circle"></i>Calangthang
+                            </a>
+                            <div class="latest-article-publish">
+                                <i id="top-post-publish-ico" class="fas fa-clock"></i>14/02/2023 - 23:03pm
+                            </div>
+                        </div>
+                        <div class="top-post-topic">
+                            <a href="" class="top-post-topic-items">Technology</a>
+                        </div>
+                        <div class="top-post-view-comment">
+                            <div class="top-post-view"><i id="top-post-view-icon" class="fas fa-eye"></i>13</div>
+                            <div class="top-post-comment"><i id="top-post-comment-icon" class="fas fa-comment"></i>423</div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-article">
+        <div class="top-article-container">
+            <div href="#" class="top-article-title-container">
+                <p class="top-article-title-text">Top Article</p>
+            </div>
+            <div class="top-article-items-container">
+                <div class="top-article-items">
+                    <div class="top-article-images">
+                        <img src="{% static 'images/avt2.jpg' %}" alt="" class="article-images">
+                    </div>
+                    <div class="top-article-content-container">
+                        <a href="#" class="top-article-content-text">Learning Together: Sharing Knowledge</a>
+                        <div class="top-article-subtext">
+                            <a href="#" class="top-article-author">
+                                <i id="author-top-post-ico" class="fas fa-user-circle"></i>Calangthang
+                            </a>
+                            <div class="top-article-publish">
+                                <i id="top-post-publish-ico" class="fas fa-clock"></i>14/02/2023 - 23:03pm
+                            </div>
+                        </div>
+                        <div class="top-post-topic">
+                            <a href="" class="top-post-topic-items">Technology</a>
+                        </div>
+                        <div class="top-post-view-comment">
+                            <div class="top-post-view"><i id="top-post-view-icon" class="fas fa-eye"></i>13</div>
+                            <div class="top-post-comment"><i id="top-post-comment-icon" class="fas fa-comment"></i>423</div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-article">
+        <div class="list-article-container">
+            <div href="#" class="list-article-title-container">
+                <p class="list-article-title-text">List Article</p>
+            </div>
+            <div class="list-article-items-container">
+                <div class="list-article-items">
+                    <div class="list-article-images">
+                        <img src="{% static 'images/avt2.jpg' %}" alt="" class="list-article-images">
+                    </div>
+                    <div class="list-article-content-container">
+                        <a href="#" class="list-article-content-text">Learning Together: Sharing Knowledge</a>
+                        <div class="list-article-subtext">
+                            <a href="#" class="list-article-author">
+                                <i id="author-list-post-ico" class="fas fa-user-circle"></i>Calangthang
+                            </a>
+                            <div class="list-article-publish">
+                                <i id="list-post-publish-ico" class="fas fa-clock"></i>14/02/2023 - 23:03pm
+                            </div>
+                        </div>
+                        <div class="list-post-topic">
+                            <a href="" class="list-post-topic-items">Technology</a>
+                        </div>
+                        <div class="list-post-view-comment">
+                            <div class="list-post-view"><i id="top-post-view-icon" class="fas fa-eye"></i>13</div>
+                            <div class="list-post-comment"><i id="top-post-comment-icon" class="fas fa-comment"></i>423</div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="list-article-items">
+                    <div class="list-article-images">
+                        <img src="{% static 'images/avt2.jpg' %}" alt="" class="list-article-images">
+                    </div>
+                    <div class="list-article-content-container">
+                        <a href="#" class="list-article-content-text">Learning Together: Sharing Knowledge</a>
+                        <div class="list-article-subtext">
+                            <a href="#" class="list-article-author">
+                                <i id="author-list-post-ico" class="fas fa-user-circle"></i>Calangthang
+                            </a>
+                            <div class="list-article-publish">
+                                <i id="list-post-publish-ico" class="fas fa-clock"></i>14/02/2023 - 23:03pm
+                            </div>
+                        </div>
+                        <div class="list-post-topic">
+                            <a href="" class="list-post-topic-items">Technology</a>
+                        </div>
+                        <div class="list-post-view-comment">
+                            <div class="list-post-view"><i id="top-post-view-icon" class="fas fa-eye"></i>13</div>
+                            <div class="list-post-comment"><i id="top-post-comment-icon" class="fas fa-comment"></i>423</div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="list-article-items">
+                    <div class="list-article-images">
+                        <img src="{% static 'images/avt2.jpg' %}" alt="" class="list-article-images">
+                    </div>
+                    <div class="list-article-content-container">
+                        <a href="#" class="list-article-content-text">Learning Together: Sharing Knowledge</a>
+                        <div class="list-article-subtext">
+                            <a href="#" class="list-article-author">
+                                <i id="author-list-post-ico" class="fas fa-user-circle"></i>Calangthang
+                            </a>
+                            <div class="list-article-publish">
+                                <i id="list-post-publish-ico" class="fas fa-clock"></i>14/02/2023 - 23:03pm
+                            </div>
+                        </div>
+                        <div class="list-post-topic">
+                            <a href="" class="list-post-topic-items">Technology</a>
+                        </div>
+                        <div class="list-post-view-comment">
+                            <div class="list-post-view"><i id="top-post-view-icon" class="fas fa-eye"></i>13</div>
+                            <div class="list-post-comment"><i id="top-post-comment-icon" class="fas fa-comment"></i>423</div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="list-article-items">
+                    <div class="list-article-images">
+                        <img src="{% static 'images/avt2.jpg' %}" alt="" class="list-article-images">
+                    </div>
+                    <div class="list-article-content-container">
+                        <a href="#" class="list-article-content-text">Learning Together: Sharing Knowledge</a>
+                        <div class="list-article-subtext">
+                            <a href="#" class="list-article-author">
+                                <i id="author-list-post-ico" class="fas fa-user-circle"></i>Calangthang
+                            </a>
+                            <div class="list-article-publish">
+                                <i id="list-post-publish-ico" class="fas fa-clock"></i>14/02/2023 - 23:03pm
+                            </div>
+                        </div>
+                        <div class="list-post-topic">
+                            <a href="" class="list-post-topic-items">Technology</a>
+                        </div>
+                        <div class="list-post-view-comment">
+                            <div class="list-post-view"><i id="top-post-view-icon" class="fas fa-eye"></i>13</div>
+                            <div class="list-post-comment"><i id="top-post-comment-icon" class="fas fa-comment"></i>423</div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+            <div class="transfer-page">
+                <a href="#" class="previous">
+                    <i id="pre-icon" class="fas fa-chevron-left"></i>
+                </a>
+                <a href="#" class="next">
+                    <i id="next-icon" class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

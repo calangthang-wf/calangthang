@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ca Lang Thang</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+  </head>
+  
+  <body>
+    <div class="base_template">
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
+          <div class="wrapper">          
+          </div>
+          <div class="container-fluid all-show">
+            <a class="navbar-brand" href="/">Ca Lang Thang <i class="fa fa-fish"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Comunity</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/blog">Blog</a>
+                </li>              
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Events</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                  <input type="text" class="input-search" placeholder="Search">
+                </li>
+              </ul>
+  
+              <div id="buy-me" class="d-flex flex-column sim">
+                <a id="buy-me-text" href="#"><i class="fas fa-coffee"></i> Buy Me A Coffe</a>
+                <small class="footer-sub-text">Thank you verry much <i class="fas fa-heart"></i></small>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      
+      <div id="nav-bar">
+        <input id="nav-toggle" type="checkbox"/>
+        <div id="nav-header"><a id="nav-title" target="_blank"><i class="fa fa-bars"></i> Menu</a>
+          <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+          <hr/>
+        </div>
+        <div id="nav-content">
+          <div class="nav-button"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></div>
+          <div class="nav-button"><i class="fas fa-comment-alt"></i><span>Messenger</span></div>
+          <div class="nav-button"><i class="fas fa-bell"></i><span>Notifications</span></div>
+          <div class="nav-button"><i class="fas fa-sliders-h"></i><span>Comunity Manager</span></div>
+          <hr/>
+          <div class="nav-button"><i class="fas fa-heart"></i><span>Following</span></div>
+          <div class="nav-button"><i class="fas fa-chart-line"></i><span>Trending</span></div>
+          <div class="nav-button"><i class="fas fa-user-friends"></i><span>Comunity</span></div>
+          <div class="nav-button"><i class="fas fa-blog"></i><span>Blog</span></div>
+          <hr/>
+          <div class="nav-button"><i class="fas fa-sign-out-alt"></i><span><a href="{% url "logout" %}">Sign Out</a></span></div>
+          <div id="nav-content-highlight"></div>
+        </div>
+        <input id="nav-footer-toggle" type="checkbox"/>
+        <div id="nav-footer">
+          <div id="nav-footer-heading">
+            <div id="nav-footer-avatar"><img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"/></div>
+            <div id="nav-footer-titlebox">
+              <a id="nav-footer-title" href="#" target="_blank">
+                <p>Ca Lang Thang <span id="badge">Admin</span></p>
+              </a>
+              <span id="nav-footer-subtitle">I'm Ca Lang Thang</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="base-right-sidebar-container">
+
+        <div class="trending-thread">
+          <div class="trending-title">
+            <p>TRENDING THREAD</p>
+            <hr/>
+          </div>
+          <div class="trending-blog-post-base">
+            <div class="trending-blog-title">
+              <h8>TRENDING POST</h8>
+            </div>
+            <div class="trending-post-preview">
+              <div class="trending-post-preview-items">
+                <div class="trending-post-preview-items-base">
+                  <a href="#" class="trending-post-preview-items-title">How to make automation tool with python?</a>
+                </div>            
+                <div class="sub-post-preview-title">
+                  <a href="#" class="post-preview-author">
+                    <div class="avt-author-preview">
+                      <img src="{% static 'images/avt.jpg' %}" class="right-bar-avt" alt=""> 
+                    </div>Posted by Ca Lang Thang
+                  </a>
+                  <li class="datetime-post-preview">19/10/2023</li>
+                  <li class="post-preview-view">View: 120</li>
+                <hr/>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="trending-forum-pre-base">
+            <div class="trending-blog-title">
+              <h8>TRENDING FORUM</h8>
+            </div>
+            <div class="trending-forum-pre">
+              <div class="trending-forum-pre-items">
+                <div class="trending-forum-pre-items-base">
+                  <a href="#" class="trending-forum-preview-items-title">Best rifle weapon?</a>
+                </div>
+                <div class="sub-forum-preview-title">
+                  <a href="#" class="forum-preview-author">
+                    <div class="avt-forum-preview">
+                      <img src="{% static 'images/avt.jpg' %}" class="forum-avt" alt=""> 
+                    </div>From CSGO</a>
+                  </a>
+                  <li class="datetime-forum-preview">19/10/2023</li>
+                  <li class="forum-preview-view">Replay: 120</li>
+                <hr/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="trending-service">
+            <div class="trending-blog-title">
+              <h8>TRENDING SERVICE</h8>
+            </div>
+            <div class="trending-service-preview">
+              <div class="trending-service-pre-items">
+                <div class="trending-service-items-pre-title-base">
+                  <a href="" class="trending-service-items-title">Monster Hunter Guid <i class="fas fa-gamepad"></i></a>
+                </div>
+                <div class="sub-trending-servicce-items">
+                  <a href="#" class="trending-servicce-items">
+                    <div class="avt-service-preview">
+                      <i id="game-logo-pre" class="fas fa-gamepad"></i>
+                    </div>From GAME</a>
+                  </a>
+                  <li class="service-preview-use">Replay: 120</li>
+                  <hr/>
+                </div>
+              </div>
+            </div>
+          </div>       
+        </div>
+
+        <div class="friend-list-container">
+          <div class="friend-list-items-container">
+            <div class="friend-list-title">
+              <a href="#" class="friend-list-title-text">FRIENDS - </a>
+              <a href="#" class="friend-list-count">3</a>
+            </div>
+            <div class="friend-list-items">
+              <a href="#" class="friend-list-avt-base">
+                <img class="friend-list-avt" src="{% static "images/avt.jpg" %}" alt="">
+              </a>
+              <a href="#" class="friend-list-name">Ca Lang Thang</a>
+            </div>
+            <div class="friend-list-items">
+              <a href="#" class="friend-list-avt-base">
+                <img class="friend-list-avt" src="{% static "images/avt.jpg" %}" alt="">
+              </a>
+              <a href="#" class="friend-list-name">Ca Lang Thang</a>
+            </div>
+            <div class="friend-list-items">
+              <a href="#" class="friend-list-avt-base">
+                <img class="friend-list-avt" src="{% static "images/avt.jpg" %}" alt="">
+              </a>
+              <a href="#" class="friend-list-name">Ca Lang Thang</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      {% block content %}
+      
+      {% endblock %}
+
+      <footer class="w-100 py-4 flex-shrink-0">
+          <div class="container py-4">
+              <div class="row gy-4 gx-5">
+                  <div class="col-lg-4 col-md-6">
+                      <h5 class="h1 text-white">Ca Lang Thang</h5>
+                      <p class="small text-muted"></p>
+                      <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">Calangthang.net</a></p>
+                  </div>
+                  <div class="col-lg-2 col-md-6">
+                      <h5 class="text-white mb-3">Quick links</h5>
+                      <ul class="list-unstyled text-muted">
+                          <li><a href="#">Comunity</a></li>
+                          <li><a href="#">Blog</a></li>
+                          <li><a href="#">Event</a></li>
+                          <li><a href="#">Service</a></li>
+                          <li><a href="#">About Us</a></li>
+                      </ul>
+                  </div>
+                  <div class="col-lg-2 col-md-6">
+                      <h5 class="text-white mb-3">Contact Us</h5>
+                      <ul class="list-unstyled text-muted">
+                          <li><a href="#">For work</a></li>
+                          <li><a href="#">Support</a></li>
+                          <li><a href="#">Partnership</a></li>
+                          <li><a href="#">FAQ</a></li>
+                          <li><a href="#">Buy me a Coffe</a></li>
+                      </ul>
+                  </div>
+                  <div class="col-lg-4 col-md-6">
+                      <h5 class="text-white mb-3">Newsletter</h5>
+                      <p class="small text-muted">Subscribe to receive our latest news</p>
+                      <form action="#">
+                          <div class="input-group mb-3">
+                              <input class="form-control" type="text" placeholder="Your Email" aria-label="Your Email" aria-describedby="button-addon2">
+                              <button class="btn btn-primary" id="button-addon2" type="button"><i class="fas fa-paper-plane"></i></button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </footer>
+            
+    </div>
+
+    <script>
+      function enableDarkMode() {
+          var element = document.body;
+          element.classList.toggle("dark-mode");
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/af562a2a63.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  
+  </body>
+</html>

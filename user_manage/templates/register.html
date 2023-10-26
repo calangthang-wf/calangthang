@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" >
+	<head>
+		{% load static %}
+		<meta charset="UTF-8">
+		<title>Ca Lang Thang</title>
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+		<link rel="stylesheet" href="{% static 'css/user/register.css' %}">
+	</head>
+	<body>
+	{% if messages %}
+		{% for message in messages %}
+			<div class="message" style="    padding: 10px; background-color: #08b834; color: #ffffff; margin-bottom: 1%; border-radius: 10px;">{{ message }}</div>
+		{% endfor %}
+	{% endif %}
+    <h2>Hi! Welcome to Ca Lang Thang</h2>
+		<div class="container" id="container">
+			<div class="form-container sign-up-container">
+				<form method="POST">
+					{% csrf_token %}
+					<h1>Create Account</h1>
+					<div class="social-container">
+						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+						<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+						<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+					<span>or use your email for registration</span>
+					{{ customRgForm.username}}
+					{{ customRgForm.email}}
+					{{ customRgForm.password1}}
+					{{ customRgForm.password2}}
+					<button class="sign-up-button" type="submit">Sign Up</button>
+					<p class="signin">
+						Already have an account?
+						<a href="/user/login" class="signup-text">Sign In</a>
+					</p>
+				</form>
+			</div>
+			
+		</div>
+
+	<script  src="{% static 'js/user/user.js' %}"></script>
+
+	</body>
+</html>

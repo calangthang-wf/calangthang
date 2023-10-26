@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" >
+	<head>
+		{% load static %}
+		<meta charset="UTF-8">
+		<title>Ca Lang Thang</title>
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+		<link rel="stylesheet" href="{% static 'css/user/login.css' %}">
+	</head>
+	<body>
+	<h2>Hi! Welcome to Ca Lang Thang</h2>
+	{% if messages %}
+		{% for message in messages %}
+			<div class="message" style="    padding: 10px; background-color: #08b834; color: #ffffff; margin-bottom: 1%; border-radius: 10px;">{{ message }}</div>
+		{% endfor %}
+	{% endif %}
+		<div class="container" id="container">
+			<div class="form-container sign-in-container">
+				<form action="{% url 'login' %}", method="POST">
+					{% csrf_token %}
+					<h1>Sign in</h1>
+					<div class="social-container">
+						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+						<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+						<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+					<span>or use your account</span>
+					<input class="login_username" type="username" placeholder="Username" name="login_username" />
+					<input class="login_password" type="password" placeholder="Password" name="login_password" />
+					<a href="#">Forgot your password?</a>
+					<button>Sign In</button>
+				</form>
+			</div>
+			<div class="overlay-container">
+				<div class="overlay">
+					<div class="overlay-panel overlay-right">
+						<h1>Hello, Friend!</h1>
+						<p>Enter your personal details and start journey with us</p>
+						<a class="signup-button" href="/user/register" class="ghost" id="signUp">Sign Up</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<script  src="{% static 'js/user/user.js' %}"></script>
+
+	</body>
+</html>

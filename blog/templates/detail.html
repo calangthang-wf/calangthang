@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/blog/detail.css' %}">
+<div class="blog-detail-container">
+    <section class="blog-posts grid-system">
+        <div class="container">
+            <div class="row">
+                <div class="all-blog-posts">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="blog-post">
+                                <div class="down-content">
+                                    <a href="#">{{ detail.topic }}</a>
+                                    <a href="post-details.html"><h4 class='detail-title'>{{ detail.title }}</h4></a>
+                                    <ul class="post-info">
+                                        <li><a id="post-info-a" href="#">{{ detail.author }}</a></li>
+                                        <li><a id="post-info-a" href="#">{{ detail.published_date }}</a></li>
+                                        <li><a id="post-info-a" href="#">10 Comments</a></li>
+                                    </ul>
+                                    <div class="blog-thumb">
+                                        <img src="{{ detail.thumbnail.url }}" alt="{{ detail.title }}">
+                                    </div>
+                                    <p id="formatted-content">
+                                        {% autoescape off %}
+                                        {{ detail.content|linebreaksbr|safe }}
+                                        {% endautoescape %}
+                                    </p>
+                                    <div class="post-options">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <ul class="post-tags">
+                                                    <li><i class="fa fa-tags"></i></li>
+                                                    <li><a href="#">{{ detail.topic }}</a>,</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6">
+                                                <ul class="post-share">
+                                                    <li><i class="fa fa-share-alt"></i></li>
+                                                    <li><a href="#">Facebook</a>,</li>
+                                                    <li><a href="#">Twitter</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="sidebar-item comments">
+                            <div class="sidebar-heading">
+                                <h2>4 comments</h2>
+                            </div>
+                            <div class="content">
+                                {% for cmts in detail.comments.all %}
+                                <ul>
+                                    <li>
+                                        <div class="author-thumb">
+                                            <img src="assets/images/comment-author-01.jpg" alt="">
+                                        </div>
+                                        <div class="right-content">
+                                            <h4>{{ cmts.name }}<span>{{ cmts.created_at }}</span></h4>
+                                            <p>{{ cmts.body }}</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="sidebar-item submit-comment">
+                            <div class="sidebar-heading">
+                                <h2>Your comment</h2>
+                            </div>
+                            <div class="content">
+                                <form id="comment" action="#" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <fieldset>
+                                                {{ cmt.body }}
+                                            </fieldset>
+                                        </div>
+                                        <div id="submit-button" class="col-lg-12">
+                                            <fieldset>
+                                                <button type="submit" id="form-submit" class="main-button">Submit</button>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    const formattedContent = document.getElementById('formatted-content');
+  
+    formattedContent.innerHTML = formattedContent.innerHTML
+      .replace(/\[bold\](.*?)\[\/bold\]/g, '<strong>$1</strong>')
+      .replace(/\[italic\](.*?)\[\/italic\]/g, '<em>$1</em>')
+      .replace(/\[underline\](.*?)\[\/underline\]/g, '<u>$1</u>');
+</script>
+{% endblock %}
